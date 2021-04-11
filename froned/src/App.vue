@@ -4,7 +4,7 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/personas">Personas</router-link> |
       <router-link to="/productos">productos</router-link> |
-      <router-link to="/registarUsuario">Registrar</router-link>
+      <router-link to="/registrarUsuario">Registrar</router-link>
     </div>
     
   <router-view />

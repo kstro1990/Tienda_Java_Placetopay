@@ -1,19 +1,19 @@
 <template>
   <div class="about">
-    <h1>This is an productos page</h1>
-    <registarUsuarioApp/>
+    <h1>Resgistro de Usuario</h1>
+    <registrarUsuarioApp/>
   </div>
 </template>
 
 
 <script>
 // @ is an alias to /src
-import registarUsuarioApp from '@/components/RegistarUsuarioApp.vue'
+import registrarUsuarioApp from '@/components/registrarUsuarioApp.vue'
 
 export default {
   name: 'registarUsuario',
   components: {
-    registarUsuarioApp
+    registrarUsuarioApp
   }
 }
 </script>

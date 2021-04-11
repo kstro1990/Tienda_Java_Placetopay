@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 
-export default class RegistarUsuarioService{
+export default class RegistrarUsuarioService{
     url = 'http://localhost:8080/V1';
     
     getAll(){

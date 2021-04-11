@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import registrarUsuario from '../service/RegistarUsuarioService'
+import registrarUsuario from '../service/RegistrarUsuarioService'
 
-const newLocal='RegistarUsuarioApp';
+const newLocal='RegistrarUsuarioApp';
 
 export default ({
     name : newLocal,
@@ -49,10 +49,19 @@ export default ({
         guardarUsuarioFun(){
         let json = {
           "nombre" : this.nombre,
-          "apellido": this.apellido
+          "apellido": this.apellido,
+          "tosaod" : "asdasd",
         };
             let respuesta = this.registrarUsuario.guardarUsuario(json);
-            //console.log(respuesta);
+
+            respuesta.then(data =>{
+                if (data.status ==200) {
+                    console.log(data.status);
+                }else{
+                    console.log("Ocurrio un problema en el Registro de Usuario : "+ data.status);
+                }
+            })
+           
         }
     }
 
