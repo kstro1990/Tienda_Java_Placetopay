@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an Personas page</h1>
+    
     <PersonasApp/>
   </div>
 </template>

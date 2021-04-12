@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <h1>This is an productos page</h1>
     <productosApp/>
   </div>
 </template>

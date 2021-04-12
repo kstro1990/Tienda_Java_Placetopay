@@ -5,16 +5,16 @@
     </template>
     <template #content>    
     <div>
-        <DataTable :value="productos" :paginator="true" :rows="5"
+        <DataTable :value="productos" :paginator="true" :rows="20"
             paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-            :rowsPerPageOptions="[5,20,50]" responsiveLayout="scroll"
+            :rowsPerPageOptions="[10,20,50]" responsiveLayout="scroll"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords}">
             <Column field="id" header="ID"></Column>
             <Column field="reference" header="Referencia"></Column>
             <Column field="price" header="Procio"></Column>
             <Column header="Status">
                 <template #body="productos">
-                    <span :class="'product-badge status-'+ productos.status">{{productos.status}}</span>
+                    <span :class="'product-badge status-'+ productos.data.status">{{productos.data.status}}</span>
                 </template>
             </Column>
         </DataTable>

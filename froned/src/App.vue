@@ -4,13 +4,16 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/personas">Personas</router-link> |
       <router-link to="/productos">productos</router-link> |
-      <router-link to="/registrarUsuario">Registrar</router-link>
+      <router-link to="/registrarUsuario">Registrar</router-link> |
+      <router-link to="/productosDetalle">ProductosDetalle</router-link>
+      
     </div>
     
   <router-view />
 </template>
 
 <style>
+
 body {
   background-color: rgb(245, 250, 255);
 }

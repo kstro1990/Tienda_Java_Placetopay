@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <h1>Resgistro de Usuario</h1>
     <registrarUsuarioApp/>
   </div>
 </template>
