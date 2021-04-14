@@ -26,7 +26,7 @@ public class PruebasApplication {
 	                        registry.addMapping("/V1/Orders/*")
                             .allowedOrigins("*")
                             .maxAge(3600);
-	                        registry.addMapping("/V1/products/*")
+	                        registry.addMapping("/V1/products/**")
                             .allowedOrigins("*")
                             .maxAge(3600);
 	                }

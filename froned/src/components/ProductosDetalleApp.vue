@@ -99,14 +99,14 @@
 							<span :class="'product-badge status-'+slotProps.data.status.toLowerCase()">{{slotProps.data.status}}</span>
 						</div>
 						<div class="product-grid-item-content">
-							<img :src="slotProps.data.imagen" alt="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" />
+							<img :src="slotProps.data.imagen" style="width: 80%;" alt="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" />
 							<div class="product-reference">{{slotProps.data.reference}}</div>
 							<div class="product-description">{{slotProps.data.description}}</div>
 							<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
 						</div>
 						<div class="product-grid-item-bottom">
-							<span class="product-price">${{slotProps.data.price}}</span>
-							<Button icon="pi pi-shopping-cart" :disabled="slotProps.data.status === 'OUTOFSTOCK'"></Button>
+							<span class="product-price">${{slotProps.data.price}}</span>            
+							<Button v-on:click="shopCar(slotProps.data.id)" icon="pi pi-shopping-cart" :disabled="slotProps.data.status === 'OUTOFSTOCK'"></Button>
 						</div>
 					</div>
 				</div>
@@ -121,6 +121,7 @@ import productosSevice from '@/service/ProductosSerivice';
 export default {
     data() {
         return {
+            cars: null,
             productos: null,
             listarP : null,
             layout: 'grid',
@@ -134,11 +135,13 @@ export default {
         }
     },
     productService: null,
+    carService: null,
     created() {
-        this.productosevice = new productosSevice(); 
+        this.productosevice = new productosSevice();
+
     },
     mounted() {
-                this.productosevice.getAll().then(
+        this.productosevice.getAll().then(
             data=>{
             this.productos = data.data
         }
@@ -160,6 +163,13 @@ export default {
                 this.sortField = value;
                 this.sortKey = sortValue;
             }
+        },
+        shopCar(productID){
+            console.log(productID);
+            this.productosevice.addCar(productID).then(
+                data=>{
+                console.log(data.data);
+            })
         }
     }
 }
@@ -198,35 +208,24 @@ export default {
 	vertical-align: middle;
 }
 
-	img {
-		width: 50px;
-		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-		margin-right: 2rem;
-	}
+.product-grid-item{
+    margin: .5rem;
+    border: 1px solid #dee2e6;
+}
 
-    	.product-list-detail {
-		flex: 1 1 0;
-	}
+.product-grid-item-top,
+.product-grid-item-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-	.p-rating {
-		margin: 0 0 .5rem 0;
-	}
+.product-grid-item-content {
+    text-align: center;
+}
 
-	.product-price {
-		font-size: 1.5rem;
-		font-weight: 600;
-		margin-bottom: .5rem;
-		align-self: flex-end;
-	}
-
-	.product-list-action {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.p-button {
-		margin-bottom: .5rem;
-	}
-
-    
+    .product-price {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
 </style>

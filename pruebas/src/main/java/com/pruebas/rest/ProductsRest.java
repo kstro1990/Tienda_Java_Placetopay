@@ -1,6 +1,8 @@
 package com.pruebas.rest;
 
+import java.io.Console;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,6 +44,25 @@ public class ProductsRest{
 		return "Fue elminado el ID: " + id;
 	}
 	
+	@GetMapping("/buscar/{id}")
+	public products buscar(@PathVariable("id") int id ) {
+		products productoObj = new products();
+		try {
+			System.out.println("Estoy dentro del Try con ID : "+ id);
+			productoObj = this.buscarPorID(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Mensage de Error: "+ e.getMessage());
+		}
+		return productoObj;
+	}
+	
+	public products buscarPorID(int id) {
+		products respuestaOBJ = new products();
+		Optional<products> respuestaOBJ2 = productsDAO.findById(id);
+		respuestaOBJ = respuestaOBJ2.get();
+		return respuestaOBJ;
+	}
 	
 	
 }

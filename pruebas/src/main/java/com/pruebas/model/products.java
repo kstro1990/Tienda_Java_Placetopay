@@ -13,7 +13,7 @@ public class products {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private int id;
 	
 	@Column
 	private String reference;
@@ -24,17 +24,29 @@ public class products {
 	@Column 
 	private float price;
 	
+	@Column
+	private String category;
+	
+	@Column
+	private int quantity;
+	
+	@Column
+	private int rating;
+	
 	@Column 
 	private String status;
 	
 	@Column
 	private URL imagen;
 
-	public long getId() {
+
+
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -77,6 +89,29 @@ public class products {
 	public void setImagen(URL imagen) {
 		this.imagen = imagen;
 	}
-	
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 	
 }

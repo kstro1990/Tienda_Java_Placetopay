@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.print.attribute.standard.DateTimeAtCreation;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -34,6 +36,7 @@ public class Orders {
 	
 	@Column
 	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created_at;
 	
 	@Column
