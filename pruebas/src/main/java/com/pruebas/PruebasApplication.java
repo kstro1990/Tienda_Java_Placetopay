@@ -20,13 +20,16 @@ public class PruebasApplication {
 	        return new WebMvcConfigurer() {
 	                @Override
 	                public void addCorsMappings(CorsRegistry registry) {
-	                        registry.addMapping("/V1/personas/*")
+	                        registry.addMapping("/V1/personas/**")
 	                                .allowedOrigins("*")
 	                                .maxAge(3600);
-	                        registry.addMapping("/V1/Orders/*")
+	                        registry.addMapping("/V1/Orders/**")
                             .allowedOrigins("*")
                             .maxAge(3600);
 	                        registry.addMapping("/V1/products/**")
+                            .allowedOrigins("*")
+                            .maxAge(3600);
+	                        registry.addMapping("/V1/car/**")
                             .allowedOrigins("*")
                             .maxAge(3600);
 	                }

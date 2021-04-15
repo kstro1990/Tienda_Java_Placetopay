@@ -1,6 +1,5 @@
 package com.pruebas.rest;
 
-import java.io.Console;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.pruebas.dao.CarDAO;
 import com.pruebas.dao.ProductsDAO;
-import com.pruebas.model.products;
+import com.pruebas.model.Car;
+import com.pruebas.model.Products;
 
 
 @RestController
@@ -25,16 +25,19 @@ public class ProductsRest{
 	@Autowired
 	private ProductsDAO productsDAO;
 	
+	private CarDAO carDAO;
+	
+	
 	// metodos HTTP 
 	
 	@PostMapping("/guardar")
-	public void guardar(@RequestBody products products) {
+	public void guardar(@RequestBody Products products) {
 		productsDAO.save(products);
 		System.out.println("Se agrego el producto  en la base de datos");
 	}
 	
 	@GetMapping("/listar")
-	public List<products>  listarProducts(){
+	public List<Products>  listarProducts(){
 		return productsDAO.findAll();
 	}
 	
@@ -45,8 +48,8 @@ public class ProductsRest{
 	}
 	
 	@GetMapping("/buscar/{id}")
-	public products buscar(@PathVariable("id") int id ) {
-		products productoObj = new products();
+	public Products buscar(@PathVariable("id") int id ) {
+		Products productoObj = new Products();
 		try {
 			System.out.println("Estoy dentro del Try con ID : "+ id);
 			productoObj = this.buscarPorID(id);
@@ -57,9 +60,22 @@ public class ProductsRest{
 		return productoObj;
 	}
 	
-	public products buscarPorID(int id) {
-		products respuestaOBJ = new products();
-		Optional<products> respuestaOBJ2 = productsDAO.findById(id);
+	@GetMapping("/addCar")
+	public void addCard() {
+		Products producto = new Products();
+		producto = buscarPorID(73);
+		Car carrito = new Car();
+		carrito.setCantidad(1); 
+		carrito.setCustomer(43);
+		carrito.setPrecio(200);
+		carrito.setProducto(73);
+		carDAO.save(carrito);
+		
+	}
+	
+	public Products buscarPorID(int id) {
+		Products respuestaOBJ = new Products();
+		Optional<Products> respuestaOBJ2 = productsDAO.findById(id);
 		respuestaOBJ = respuestaOBJ2.get();
 		return respuestaOBJ;
 	}
