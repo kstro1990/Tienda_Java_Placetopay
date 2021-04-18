@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pruebas.dao.CarDAO;
-import com.pruebas.dao.ProductsDAO;
 import com.pruebas.model.Car;
+import com.pruebas.model.CarTemp;
 import com.pruebas.model.Products;
-import com.pruebas.rest.ProductsRest;
 
 
 @RestController
@@ -26,30 +25,31 @@ public class CarRest {
 	@PostMapping("/guardar")
 	public void guardar(@RequestBody Car car) {
 		carDao.save(car);
-		System.out.println("se creo la orden: ");
-	}
-	
-	@GetMapping("/add/{id}")
-	public void addCar(@PathVariable("id") int id) {
-		Car carrito = new Car(); 
-		Products producto = new Products(); 
-		ProductsRest buscar = new ProductsRest();
-		try {
-			carrito.setCantidad(1); 
-			carrito.setCustomer(43);
-			carrito.setPrecio(200);
-			carrito.setProducto(73);
-			carDao.save(carrito);
-			
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 	}
 	
 	@GetMapping("/listar")
-	public List<Car> listarOrdenes(){
+	public List<Car> listarCar(){
 		return carDao.findAll();
 	}
+	
+	@GetMapping("/listarPorUsuario/{id}")
+	public CarTemp agrupar(@PathVariable("id") int id) {
+		List<Car> respuesta =  carDao.findByCustomer(id);
+		float precioSuma  = 0;
+		int cantidadSuma = respuesta.size();
+		for (Car car : respuesta) {
+			precioSuma = precioSuma + car.getPrecio();
+		}
+		CarTemp CarritoTemporal = new CarTemp();
+		CarritoTemporal.setTotalAmout(precioSuma);
+		CarritoTemporal.setTotalProduct(cantidadSuma);
+		return CarritoTemporal;
+	}
+	
+	@GetMapping("/join/{id}")
+	public List<Car> join(@PathVariable("id") int id) {
+		List<Car> respuesta = carDao.joinCarrito(id);
+		return respuesta;
+	}
+	
 }

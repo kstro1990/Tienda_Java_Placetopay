@@ -24,6 +24,10 @@ import Divider from 'primevue/divider';
 import DataView from 'primevue/dataview';
 import Dropdown from 'primevue/dropdown';
 import Rating from 'primevue/rating';
+import Badge from 'primevue/badge';
+import Dialog from 'primevue/dialog';
+import BadgeDirective from 'primevue/badgedirective';
+
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions';
 
  
@@ -34,7 +38,10 @@ import vueConfig from '../vue.config';
 
 const app =  createApp(App).use(store).use(router).use(PrimeVue);
 
+app.directive('badge', BadgeDirective);
 
+app.component('Badge',Badge);
+app.component('BadgeDirective',BadgeDirective);
 app.component('DataTable',DataTable);
 app.component('Column',Column);
 app.component('ColumnGroup',ColumnGroup);
@@ -49,6 +56,7 @@ app.component('Divider',Divider);
 app.component('DataView',DataView);
 app.component('Dropdown',Dropdown);
 app.component('Rating',Rating);
+app.component('Dialog',Dialog);
 app.component('DataViewLayoutOptions',DataViewLayoutOptions);
 
 app.mount('#app')

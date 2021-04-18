@@ -1,61 +1,4 @@
 <template>
-<div class="p-formgroup-inline">
-    <div class="p-col">
-        <Card style="width: 25rem; margin-bottom: 2em" >
-            <template #header>
-                <img alt="user header"  src="https://images.unsplash.com/photo-1465877783223-4eba513e27c6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1">
-            </template>
-            <template #title>
-                Advanced Card
-            </template>
-            <template #content>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-            </template>
-            <template #footer>
-                <Button icon="pi pi-check" label="Save" />
-                <Button icon="pi pi-times" label="Cancel" class="p-button-secondary" style="margin-left: .5em" />
-            </template>
-        </Card>
-    </div>
-    <div class="p-col">
-        <Card style="width: 25rem; margin-bottom: 2em">
-            <template #header>
-                <img alt="user header" src="https://images.unsplash.com/photo-1516478177764-9fe5bd7e9717?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80">
-            </template>
-            <template #title>
-                Advanced Card
-            </template>
-            <template #content>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-            </template>
-            <template #footer>
-                <Button icon="pi pi-check" label="Save" />
-                <Button icon="pi pi-times" label="Cancel" class="p-button-secondary" style="margin-left: .5em" />
-            </template>
-        </Card>
-    </div>
-    <div class="p-col">
-        <Card style="width: 25rem; margin-bottom: 2em">
-            <template #header>
-                <img alt="user header" src="https://images.unsplash.com/photo-1520256862855-398228c41684?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80">
-            </template>
-            <template #title>
-                Advanced Card
-            </template>
-            <template #content>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-            </template>
-            <template #footer>
-                <Button icon="pi pi-check" label="Save" />
-                <Button icon="pi pi-times" label="Cancel" class="p-button-secondary" style="margin-left: .5em" />
-            </template>
-        </Card>
-    </div>
-</div>
-
     <div class="card">
         <DataView :value="productos" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
 			<template #header>
@@ -64,7 +7,9 @@
                         <Dropdown v-model="sortKey" :options="sortOptions" optionLabel="label" placeholder="Sort By Price" @change="onSortChange($event)"/>
                     </div>
                     <div class="p-col-6" style="text-align: right">
-                        <DataViewLayoutOptions v-model="layout" />
+                        <Button label="Plain" class="p-button-text p-button-help" @click="openResponsive" >
+                            <span  class="pi pi-shopping-cart" style="fontSize: 2rem" v-badge=cantidadCard></span>
+                        </Button>
                     </div>
                 </div>
 			</template>
@@ -113,6 +58,27 @@
 			</template>
 		</DataView>
 	</div>
+            <Dialog header="Header" v-model:visible="displayResponsive" :breakpoints="{'960px': '75vw'}" :style="{width: '50vw'}">
+            <div class="p-fluid">
+                <div class="p-field">
+                    <h3>Total productos</h3>
+                    <h4>{{totalProduct}}</h4>
+                </div>
+                <div class="p-field">
+                    <h3>Total</h3>
+                    <h4>USD : {{totalCar}}</h4>
+                </div>
+            </div>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <template #footer>
+                <Button label="Pagar" class="p-button-text" @click="callP2P"></Button>
+                <Button label="Yes" icon="pi pi-check" @click="closeResponsive" autofocus />
+            </template>
+        </Dialog>
 </template>
 
 <script>
@@ -121,6 +87,10 @@ import productosSevice from '@/service/ProductosSerivice';
 export default {
     data() {
         return {
+            displayResponsive: false,
+            cantidadCard: 0,
+            totalCar: 0,
+            totalProduct : 0,
             cars: null,
             productos: null,
             listarP : null,
@@ -137,16 +107,20 @@ export default {
     productService: null,
     carService: null,
     created() {
-        this.productosevice = new productosSevice();
+        this.productoSevice = new productosSevice();
 
     },
     mounted() {
-        this.productosevice.getAll().then(
+        this.productoSevice.getAll().then(
             data=>{
             this.productos = data.data
-        }
-        )
-
+        });
+        localStorage.customer = 42;
+        this.productoSevice.carTemp(localStorage.getItem('customer'))
+            .then(data =>{
+                this.cantidadCard = data.data.totalProduct;
+                console.log(data.data);
+            })
     },
     methods: {
         onSortChange(event){
@@ -166,10 +140,34 @@ export default {
         },
         shopCar(productID){
             console.log(productID);
-            this.productosevice.addCar(productID).then(
-                data=>{
-                console.log(data.data);
+            this.cantidadCard = this.cantidadCard +1;
+            this.productoSevice.addCar(productID, localStorage.getItem('customer'))
+            .then(resq=>{
+                console.log(resq.data);
+            });
+        },
+        cartTempGet(){
+            this.productoSevice.carTemp(localStorage.getItem('customer'))
+            .then(resq =>{
+                this.cantidadCard = resq.data.totalProduct;
+                console.log(resq.data);
             })
+        },
+        openResponsive() {
+            this.displayResponsive = true;
+            this.productoSevice.carTemp(localStorage.getItem('customer'))
+            .then(resq =>{
+                this.totalProduct = resq.data.totalProduct;
+                this.totalCar =  resq.data.totalAmout;
+                console.log(resq.data);
+            })
+        },
+        closeResponsive() {
+            this.displayResponsive = false;
+        },
+        callP2P(){
+            //alert("Aqui toy Compadre");
+            this.productoSevice.pagarTemp(localStorage.getItem('customer'))
         }
     }
 }

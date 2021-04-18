@@ -32,6 +32,12 @@ public class PruebasApplication {
 	                        registry.addMapping("/V1/car/**")
                             .allowedOrigins("*")
                             .maxAge(3600);
+	                        registry.addMapping("/V1/pagar/**")
+                            .allowedOrigins("*")
+                            .maxAge(3600);
+	                        
+	                        
+	                        
 	                }
 
 	        };

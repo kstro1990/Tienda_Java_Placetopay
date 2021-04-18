@@ -4,9 +4,8 @@
   </div>
 </template>
 
-
 <script>
-// @ is an alias to /src
+
 import productosApp from '@/components/ProductosApp.vue'
 
 export default {
