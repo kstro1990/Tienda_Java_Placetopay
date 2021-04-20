@@ -1,49 +1,54 @@
-#  Integración Prueba Placetopay Java
+# Integración Prueba Placetopay Java
 
-### **Autor:** Luis Castro 
-versión: 1.0 
+### **Autor:** Luis Castro
+
+versión: 1.0
 
 ### Backend
-- Este proyecto esta realizado con Java JDK 11 con el ** framework spring boot**  <version>2.4.4</version>
+
+- Este proyecto está realizado con Java JDK 11 con el**framework spring boot** 2.4.4
 - Mave 4.0.0
 - base de datos mySQL
 
-### Froend 
--El froend esta realizado en con el **framework vue.js** 3.0
--Libreria **Primevue** 3.3.5
+### Frontend
 
+- El frontend esta realizado en con el**framework vue.js** 3.0
+- Librería**Primevue** 3.3.5
 
 # Instalación
 
-- Crear la base de datos : `deploy_tienda_java`
+- Crear la base de datos :`deploy_tienda_java`
 
 ```sql
     CREATE DATABASE IF NOT EXISTS `deploy_tienda_java` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
     USE `deploy_tienda_java`;
 ```
 
-------------
+---
 
-- Ejecutar el proyecto Java que se encuentra en la carpeta `pruebas` se recomienda utilizar el IDE **Eclipse** con la herramienta **spring tools suite 4**.
+- Ejecutar el proyecto Java que se encuentra en la carpeta`pruebas` se recomienda utilizar el IDE**Eclipse** con la herramienta**spring tools suite 4**.
 
-------------
-**Ingresar a la Carpeta:** ` \pruebas\src\main\resources`
+---
 
-Configurar el archivo `application.properties` este contine la configuracion para el proyecto de Java. 
+**Ingresar a la ruta :** ` ..\pruebas\src\main\resources`
 
-    spring.jpa.database=MYSQL
-    spring.jpa.show-sql=true
-    spring.jpa.hibernate.ddl-auto=update
-    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-    spring.datasource.url=jdbc:mysql://127.0.0.1:3306/deploy_tienda_java
-    spring.datasource.username= USUARIO BASE DE DATO
-    spring.datasource.password= CONTRASEÑA  BASE DE DATO
+Configurar el archivo `application.properties` este contine la configuración para el proyecto de Java.
 
-Agregar la el Archivo .env que fue compartido.
+```
+spring.jpa.database=MYSQL
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/deploy_tienda_java
+spring.datasource.username= USUARIO BASE DE DATO
+spring.datasource.password= CONTRASEÑA  BASE DE DATO
+```
 
-------------
+Agregar la el Archivo .env que fue compartido en la ruta: `..\pruebas\.env`
 
-* Una vez creadas las entidasdes en la base de datos agregar el producto con el siguiente Script
+---
+
+* Una vez creadas las entidades en la base de datos agregar el producto con el siguiente Script
 
 ```sql
 INSERT INTO `products` (`id`, `category`, `description`, `imagen`, `price`, `quantity`, `rating`, `reference`, `status`) VALUES
@@ -53,20 +58,21 @@ INSERT INTO `products` (`id`, `category`, `description`, `imagen`, `price`, `qua
 
 ```
 
-------------
+---
 
-###  Para ejecuatar el el Backend
+### Para ejecuatar el el Backend
+
 Ejecutar el proyecto --> Run As --> Spring Boot App
 
-------------
+---
 
-### Para instalar el Froend 
+### Para instalar el Frontend
 
-**Ingresar a la carpeta `/froned`**
-Ejecutar el siguiente comando por terminal: 
+**Ingresar a la carpeta `../Frontend`**
+Ejecutar el siguiente comando por terminal:
 
 `npm install `
 
-Despuest de la instalación ejecutar 
+Despuest de la instalación ejecutar
 
 `npm run serve`
