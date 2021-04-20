@@ -6,14 +6,14 @@ versión: 1.0
 
 ### Backend
 
-- Este proyecto está realizado con Java JDK 11 con el**framework spring boot** 2.4.4
+- Este proyecto está realizado con Java JDK 11 con el **framework spring boot** 2.4.4
 - Mave 4.0.0
 - base de datos mySQL
 
 ### Frontend
 
-- El frontend esta realizado en con el**framework vue.js** 3.0
-- Librería**Primevue** 3.3.5
+- El frontend esta realizado en con el **framework vue.js** 3.0
+- Librería **Primevue** 3.3.5
 
 # Instalación
 
