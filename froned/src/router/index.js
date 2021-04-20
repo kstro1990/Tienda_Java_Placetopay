@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import StatusPedido from '../views/StatusPedido.vue'
 
 const routes = [
+
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/StatusPedido',
+    name: 'StatusPedido',
+    component: StatusPedido,
+    
   },
   {
     path: '/personas',
@@ -18,7 +21,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "Productos" */ '../views/Productos.vue')
   },
   {
-    path: '/registrarUsuario',
+    path: '/',
     name: 'RegistrarUsuario',
     component: () => import(/* webpackChunkName: "Productos" */ '../views/RegistrarUsuario')
   },
@@ -26,7 +29,8 @@ const routes = [
     path: '/productosDetalle',
     name: 'ProductosDetalle',
     component: () => import(/* webpackChunkName: "ProductosDetalle" */ '../views/ProductosDetalle')
-  }
+  },
+  { path: '/hi', redirect: '/producto' }
 ]
 
 const router = createRouter({
@@ -35,3 +39,5 @@ const router = createRouter({
 })
 
 export default router
+
+

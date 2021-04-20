@@ -78,6 +78,7 @@ export default ({
             respuesta.then(data =>{
                 if (data.status ==200) {
                     console.log(data.status);
+                    console.log(data);
                 }else{
                     console.log("Ocurrio un problema en el Registro de Usuario : "+ data.status);
                 }

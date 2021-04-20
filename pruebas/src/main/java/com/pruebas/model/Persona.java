@@ -35,7 +35,7 @@ public class Persona {
 	@Column
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date created_at;
+	public Date created_at;
 
 	@PreUpdate
 	public void setCreated_at() {

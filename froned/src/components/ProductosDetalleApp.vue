@@ -115,7 +115,7 @@ export default {
             data=>{
             this.productos = data.data
         });
-        localStorage.customer = 42;
+        localStorage.customer = 1;
         this.productoSevice.carTemp(localStorage.getItem('customer'))
             .then(data =>{
                 this.cantidadCard = data.data.totalProduct;
@@ -167,7 +167,8 @@ export default {
         },
         callP2P(){
             //alert("Aqui toy Compadre");
-            this.productoSevice.pagarTemp(localStorage.getItem('customer'))
+            var respuesta = this.productoSevice.pagarTemp(localStorage.getItem('customer'));
+            console.log(respuesta);
         }
     }
 }

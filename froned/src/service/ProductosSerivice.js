@@ -38,6 +38,7 @@ export default class ProductosSerivice{
     pagarTemp(IdCustomer){
         var endpoint = 'http://localhost:8080/V1/pagar/p2p';
         var endpointCarritoTemp = 'http://localhost:8080/V1/car/listarPorUsuario/'+ IdCustomer;
+        var urlResponse = null; 
 
         axios.get(endpointCarritoTemp)
         .then(data=>{
@@ -47,12 +48,14 @@ export default class ProductosSerivice{
                 totalProduct: data.data.totalProduct
             }
             console.log(jsonCarTemp);
-            var testear = axios.post(endpoint,jsonCarTemp);
-            testear.then(data=>{
+
+            var placetopayR = axios.post(endpoint,jsonCarTemp);
+            placetopayR.then(data=>{
                 console.log(data.data);
-            })
+                location.href =  data.data.processUrl;
+            });
+            
         })
-        
-        //return axios.get(endpoint,jsonCarTemp);
+        return urlResponse;
     }
 }

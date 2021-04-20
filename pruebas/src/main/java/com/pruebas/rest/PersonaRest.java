@@ -27,9 +27,10 @@ public class PersonaRest{
 	// metodos HTTP 
 	
 	@PostMapping("/guardar")
-	public void guardar(@RequestBody Persona persona) {
-		personaDAO.save(persona);
+	public Persona guardar(@RequestBody Persona persona) {
+		Persona responsePersona =  personaDAO.save(persona);
 		System.out.println("Se agrego la personaen la base de datos");
+		return responsePersona;
 	}
 	
 	@GetMapping("/listar")

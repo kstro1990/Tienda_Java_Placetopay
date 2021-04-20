@@ -24,23 +24,35 @@ import com.pruebas.model.RequestP2P;
 
 import com.pruebas.service.pagarService;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 @RestController
 @RequestMapping("V1/pagar")
 public class Pargar {
 	
 	@Autowired
 	private PersonaDAO personaDAO;
+	
+	Dotenv dotenv = Dotenv.load();
+	
 
 	@PostMapping("/p2p")
 	public RedirectResponseTemp createRequest(@RequestBody CarTemp carTemp) {
+		
+		String login_p2p =  dotenv.get("loginTestP2P");
+		String tranKey_p2p =  dotenv.get("trankeyTestP2P");
+		String rul_p2p=  dotenv.get("enpointTest");		
 		try {
 			PlaceToPay p2p = new PlaceToPay(
-					"1863f8a3ba0e8d4290137c4b18fa4286",
-	                "97d3E70wO36CoQjS",
-	                new URL("https://test.placetopay.ec/redirection/"));
+					login_p2p,
+					tranKey_p2p,
+	                new URL(rul_p2p));
+			
 			RequestP2P requestData = new RequestP2P();
 			ObjectMapper mapper = new ObjectMapper();
 			
+			System.out.println(carTemp.getCustomerID());
+						
 			Persona buyerGet =  personaDAO.findById(carTemp.getCustomerID());
 			
 			Person buyer = new Person();
@@ -55,10 +67,10 @@ public class Pargar {
 			
 			Amount amount = new Amount();
 			amount.setCurrency("USD");
-			amount.setTotal(200);
+			amount.setTotal(carTemp.getTotalAmout());
 			
 			Payment payment = new Payment();
-			payment.setReference("13213 R");
+			payment.setReference("13213R");
 			payment.setAmount(amount);
 			
 			requestData.setPayment(payment);
@@ -68,6 +80,9 @@ public class Pargar {
 			
 			String jsonString = mapper.writeValueAsString(requestData);
 			RedirectRequest reqP2p = new RedirectRequest(jsonString);
+			
+			reqP2p.setReturnUrl("http://localhost:8585/?requestId=" + payment.getReference());
+			
 			System.out.println(jsonString);
 			RedirectResponse response = p2p.request(reqP2p);
 			System.out.println(response.getProcessUrl());
