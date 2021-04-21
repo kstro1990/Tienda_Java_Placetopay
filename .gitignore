@@ -3,4 +3,3 @@
 *.metadata
 
 node_modules/
-pruebas/src/main/resources/application.properties
